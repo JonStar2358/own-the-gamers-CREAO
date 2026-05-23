@@ -1,0 +1,1550 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head><base href="https://d16ilfvy4mv02r.cloudfront.net/workspaces/9DFMMwe1xwZZne2QzofesWAGBFAwBdYy/a9b640fb-47a4-4fcd-b98d-0d11c4e79657/files/">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Own the Gamers</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+
+  :root {
+    --neon-cyan: #00fff5;
+    --neon-pink: #ff00cc;
+    --neon-purple: #9400ff;
+    --neon-green: #00ff88;
+    --neon-yellow: #ffee00;
+    --dark-bg: #050510;
+    --card-bg: rgba(10, 5, 30, 0.85);
+    --grid-color: rgba(0, 255, 245, 0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--dark-bg);
+    font-family: 'Share Tech Mono', monospace;
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--grid-color) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Scanlines */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.15) 2px,
+      rgba(0,0,0,0.15) 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .page { position: relative; z-index: 2; }
+
+  /* ── NEON TEXT ── */
+  .neon-cyan {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 7px var(--neon-cyan), 0 0 21px var(--neon-cyan), 0 0 42px var(--neon-cyan);
+  }
+  .neon-pink {
+    color: var(--neon-pink);
+    text-shadow: 0 0 7px var(--neon-pink), 0 0 21px var(--neon-pink), 0 0 42px var(--neon-pink);
+  }
+  .neon-green {
+    color: var(--neon-green);
+    text-shadow: 0 0 7px var(--neon-green), 0 0 21px var(--neon-green);
+  }
+  .neon-yellow {
+    color: var(--neon-yellow);
+    text-shadow: 0 0 7px var(--neon-yellow), 0 0 21px var(--neon-yellow);
+  }
+
+  /* ── BUTTONS ── */
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 13px 28px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.08);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .btn:hover::before { opacity: 1; }
+
+  .btn-cyan {
+    background: transparent;
+    color: var(--neon-cyan);
+    border: 2px solid var(--neon-cyan);
+    box-shadow: 0 0 12px var(--neon-cyan), inset 0 0 12px rgba(0,255,245,0.08);
+  }
+  .btn-cyan:hover {
+    background: rgba(0,255,245,0.12);
+    box-shadow: 0 0 25px var(--neon-cyan), inset 0 0 20px rgba(0,255,245,0.15);
+  }
+  .btn-pink {
+    background: transparent;
+    color: var(--neon-pink);
+    border: 2px solid var(--neon-pink);
+    box-shadow: 0 0 12px var(--neon-pink), inset 0 0 12px rgba(255,0,204,0.08);
+  }
+  .btn-pink:hover {
+    background: rgba(255,0,204,0.12);
+    box-shadow: 0 0 25px var(--neon-pink), inset 0 0 20px rgba(255,0,204,0.15);
+  }
+  .btn-green {
+    background: transparent;
+    color: var(--neon-green);
+    border: 2px solid var(--neon-green);
+    box-shadow: 0 0 12px var(--neon-green), inset 0 0 12px rgba(0,255,136,0.08);
+  }
+  .btn-green:hover {
+    background: rgba(0,255,136,0.12);
+    box-shadow: 0 0 25px var(--neon-green), inset 0 0 20px rgba(0,255,136,0.15);
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid rgba(0,255,245,0.2);
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0,255,245,0.05), inset 0 0 30px rgba(0,0,0,0.4);
+    backdrop-filter: blur(10px);
+  }
+
+  /* ── INPUT ── */
+  .neon-input {
+    background: rgba(0,0,0,0.5);
+    border: 1px solid rgba(0,255,245,0.35);
+    border-radius: 3px;
+    color: var(--neon-cyan);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.95rem;
+    padding: 12px 16px;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .neon-input:focus {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 10px rgba(0,255,245,0.3);
+  }
+  .neon-input::placeholder { color: rgba(0,255,245,0.35); }
+
+  /* ══════════════════════════════
+     AUTH SCREEN
+  ══════════════════════════════ */
+  #auth-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .logo-wrap {
+    text-align: center;
+    margin-bottom: 50px;
+    animation: flicker 4s infinite;
+  }
+  .logo-wrap h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 900;
+    letter-spacing: 4px;
+    line-height: 1.1;
+  }
+  .logo-subtitle {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    letter-spacing: 5px;
+    color: rgba(255,0,204,0.7);
+    margin-top: 8px;
+  }
+  .logo-year {
+    font-size: 0.75rem;
+    letter-spacing: 6px;
+    color: rgba(0,255,245,0.4);
+    margin-top: 4px;
+  }
+
+  @keyframes flicker {
+    0%,19%,21%,23%,25%,54%,56%,100% { opacity: 1; }
+    20%,24%,55% { opacity: 0.7; }
+  }
+
+  .auth-card {
+    width: 100%;
+    max-width: 440px;
+    padding: 40px;
+  }
+
+  .auth-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(0,255,245,0.2);
+  }
+  .auth-tab {
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    color: rgba(0,255,245,0.4);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.2s;
+  }
+  .auth-tab.active {
+    color: var(--neon-cyan);
+    border-bottom-color: var(--neon-cyan);
+    text-shadow: 0 0 7px var(--neon-cyan);
+  }
+
+  .auth-panel { display: none; }
+  .auth-panel.active { display: block; }
+
+  .form-group { margin-bottom: 18px; }
+  .form-label {
+    display: block;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: rgba(0,255,245,0.6);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+
+  .divider {
+    display: flex; align-items: center; gap: 12px;
+    margin: 20px 0;
+    color: rgba(255,255,255,0.3);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.15);
+  }
+
+  .google-btn {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+  .google-icon {
+    width: 18px; height: 18px;
+    background: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    font-weight: 900;
+    color: #4285F4;
+    font-family: sans-serif;
+    flex-shrink: 0;
+  }
+
+  .guest-btn { width: 100%; justify-content: center; }
+
+  .bonus-badge {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(0,255,136,0.07);
+    border: 1px solid rgba(0,255,136,0.3);
+    border-radius: 3px;
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    font-size: 0.8rem;
+    color: var(--neon-green);
+  }
+  .bonus-badge .bonus-icon { font-size: 1.4rem; }
+  .bonus-amount {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  /* ══════════════════════════════
+     MAIN APP
+  ══════════════════════════════ */
+  #app-screen { display: none; min-height: 100vh; flex-direction: column; }
+
+  /* ── NAV ── */
+  nav {
+    display: flex; align-items: center; gap: 16px;
+    padding: 14px 28px;
+    background: rgba(5,5,20,0.95);
+    border-bottom: 1px solid rgba(0,255,245,0.15);
+    position: sticky; top: 0; z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+  .nav-logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    flex-shrink: 0;
+  }
+  .nav-tabs {
+    display: flex; gap: 4px;
+    flex: 1; justify-content: center;
+  }
+  .nav-tab {
+    padding: 8px 18px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    color: rgba(0,255,245,0.45);
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+  }
+  .nav-tab:hover { color: var(--neon-cyan); background: rgba(0,255,245,0.05); }
+  .nav-tab.active {
+    color: var(--neon-cyan);
+    border-color: rgba(0,255,245,0.3);
+    background: rgba(0,255,245,0.08);
+    text-shadow: 0 0 7px var(--neon-cyan);
+  }
+  .nav-right {
+    display: flex; align-items: center; gap: 14px;
+    flex-shrink: 0;
+  }
+  .wallet {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(0,255,136,0.08);
+    border: 1px solid rgba(0,255,136,0.3);
+    border-radius: 3px;
+    padding: 7px 14px;
+  }
+  .wallet-label { font-size: 0.65rem; letter-spacing: 2px; color: rgba(0,255,136,0.6); }
+  .wallet-amount {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--neon-green);
+    text-shadow: 0 0 7px var(--neon-green);
+  }
+  .user-chip {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.75rem;
+    color: rgba(0,255,245,0.6);
+  }
+  .user-avatar {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border: 1px solid var(--neon-pink);
+    box-shadow: 0 0 8px var(--neon-pink);
+  }
+  .logout-btn {
+    background: none;
+    border: 1px solid rgba(255,0,204,0.3);
+    color: rgba(255,0,204,0.6);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+  }
+  .logout-btn:hover { color: var(--neon-pink); border-color: var(--neon-pink); }
+
+  /* ── VIEWS ── */
+  .view { display: none; padding: 30px 28px; max-width: 1200px; margin: 0 auto; width: 100%; }
+  .view.active { display: block; }
+
+  /* ── DASHBOARD ── */
+  .welcome-banner {
+    text-align: center;
+    padding: 50px 20px 40px;
+    position: relative;
+  }
+  .welcome-banner h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.5rem, 4vw, 2.8rem);
+    font-weight: 900;
+    letter-spacing: 4px;
+    margin-bottom: 10px;
+  }
+  .welcome-banner p {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+  }
+
+  .bonus-alert {
+    display: none;
+    background: linear-gradient(135deg, rgba(0,255,136,0.1), rgba(0,255,245,0.05));
+    border: 1px solid var(--neon-green);
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 0 20px rgba(0,255,136,0.15);
+    animation: pulse-green 2s ease-in-out 3;
+  }
+  @keyframes pulse-green {
+    0%,100% { box-shadow: 0 0 20px rgba(0,255,136,0.15); }
+    50% { box-shadow: 0 0 40px rgba(0,255,136,0.4); }
+  }
+  .bonus-alert-icon { font-size: 2.5rem; }
+  .bonus-alert-text h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .bonus-alert-text p { font-size: 0.8rem; color: rgba(255,255,255,0.6); letter-spacing: 1px; }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 30px;
+  }
+  .stat-card {
+    padding: 22px 20px;
+    text-align: center;
+  }
+  .stat-icon { font-size: 2rem; margin-bottom: 10px; }
+  .stat-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .stat-label { font-size: 0.7rem; letter-spacing: 3px; color: rgba(255,255,255,0.4); text-transform: uppercase; }
+
+  .section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(0,255,245,0.3), transparent);
+  }
+
+  /* ── MARKETPLACE ── */
+  .market-filters {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .filter-chip {
+    padding: 7px 16px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    border: 1px solid rgba(0,255,245,0.25);
+    color: rgba(0,255,245,0.5);
+    background: transparent;
+    font-family: 'Share Tech Mono', monospace;
+    transition: all 0.2s;
+  }
+  .filter-chip:hover, .filter-chip.active {
+    background: rgba(0,255,245,0.1);
+    color: var(--neon-cyan);
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 8px rgba(0,255,245,0.2);
+  }
+
+  .market-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .market-item {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+  }
+  .market-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0,255,245,0.15);
+  }
+  .item-image {
+    width: 100%;
+    aspect-ratio: 1;
+    background: rgba(0,0,0,0.5);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3.5rem;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(0,255,245,0.1);
+  }
+  .item-image canvas {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain;
+  }
+  .item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .item-badge {
+    position: absolute; top: 8px; right: 8px;
+    background: rgba(255,0,204,0.85);
+    color: #fff;
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+    padding: 3px 7px;
+    border-radius: 2px;
+    font-family: 'Orbitron', sans-serif;
+  }
+  .item-info { padding: 14px 16px; }
+  .item-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .item-creator { font-size: 0.7rem; color: rgba(255,255,255,0.4); margin-bottom: 10px; }
+  .item-footer { display: flex; align-items: center; justify-content: space-between; }
+  .item-price {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .buy-btn {
+    padding: 6px 14px;
+    font-size: 0.65rem;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 2px;
+    border: 1px solid var(--neon-cyan);
+    background: rgba(0,255,245,0.08);
+    color: var(--neon-cyan);
+    transition: all 0.2s;
+  }
+  .buy-btn:hover {
+    background: rgba(0,255,245,0.2);
+    box-shadow: 0 0 10px rgba(0,255,245,0.3);
+  }
+
+  /* ── UPLOAD ── */
+  .upload-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+  @media (max-width: 700px) { .upload-layout { grid-template-columns: 1fr; } }
+
+  .canvas-wrap {
+    aspect-ratio: 1;
+    position: relative;
+    border: 2px dashed rgba(0,255,245,0.3);
+    border-radius: 4px;
+    overflow: hidden;
+    background: #000;
+    cursor: crosshair;
+  }
+  #doodle-canvas { display: block; width: 100%; height: 100%; }
+
+  .tool-row {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-bottom: 14px; align-items: center;
+  }
+  .color-swatch {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+  .color-swatch.selected { border-color: #fff; transform: scale(1.2); box-shadow: 0 0 8px rgba(255,255,255,0.5); }
+
+  .brush-btn {
+    padding: 5px 12px;
+    font-size: 0.7rem;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.6);
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: 'Share Tech Mono', monospace;
+    transition: all 0.15s;
+  }
+  .brush-btn.active {
+    background: rgba(0,255,245,0.12);
+    border-color: var(--neon-cyan);
+    color: var(--neon-cyan);
+  }
+
+  .size-label { font-size: 0.7rem; color: rgba(255,255,255,0.4); letter-spacing: 1px; }
+  input[type=range] {
+    accent-color: var(--neon-cyan);
+    width: 90px;
+  }
+
+  .upload-form { display: flex; flex-direction: column; gap: 16px; }
+  .price-input-wrap { position: relative; }
+  .price-input-wrap span {
+    position: absolute; left: 14px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--neon-green);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    pointer-events: none;
+  }
+  .price-input { padding-left: 30px !important; }
+
+  .or-upload {
+    border: 2px dashed rgba(0,255,245,0.25);
+    border-radius: 4px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.8rem;
+    color: rgba(0,255,245,0.4);
+  }
+  .or-upload:hover {
+    border-color: var(--neon-cyan);
+    color: var(--neon-cyan);
+    background: rgba(0,255,245,0.04);
+  }
+  #file-upload-input { display: none; }
+
+  /* ── MY DOODLES ── */
+  .my-doodles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  .my-item { position: relative; }
+  .my-item-actions {
+    position: absolute; top: 8px; left: 8px;
+    display: flex; gap: 6px;
+  }
+  .action-chip {
+    padding: 3px 8px;
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+    border: none;
+  }
+  .chip-sell {
+    background: rgba(0,255,136,0.2);
+    color: var(--neon-green);
+    border: 1px solid var(--neon-green);
+  }
+  .chip-delete {
+    background: rgba(255,0,0,0.15);
+    color: #ff4444;
+    border: 1px solid #ff4444;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: rgba(0,255,245,0.3);
+  }
+  .empty-state .empty-icon { font-size: 4rem; margin-bottom: 16px; }
+  .empty-state h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+  }
+  .empty-state p { font-size: 0.8rem; }
+
+  /* ── TOAST ── */
+  #toast-container {
+    position: fixed; bottom: 24px; right: 24px;
+    z-index: 9999;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .toast {
+    padding: 14px 20px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    max-width: 320px;
+    animation: slideIn 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  @keyframes slideIn {
+    from { transform: translateX(100px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  .toast-success {
+    background: rgba(0,255,136,0.12);
+    border: 1px solid var(--neon-green);
+    color: var(--neon-green);
+  }
+  .toast-info {
+    background: rgba(0,255,245,0.1);
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+  }
+  .toast-warning {
+    background: rgba(255,238,0,0.1);
+    border: 1px solid var(--neon-yellow);
+    color: var(--neon-yellow);
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 500;
+    align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    width: 100%; max-width: 480px;
+    padding: 32px;
+    position: relative;
+  }
+  .modal-close {
+    position: absolute; top: 14px; right: 16px;
+    background: none; border: none;
+    color: rgba(255,255,255,0.4);
+    font-size: 1.2rem; cursor: pointer;
+    transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--neon-pink); }
+  .modal h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+  }
+  .modal-image {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: contain;
+    background: #000;
+    border: 1px solid rgba(0,255,245,0.15);
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  .modal-meta { display: flex; justify-content: space-between; margin-bottom: 20px; }
+  .modal-price {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    nav { padding: 10px 14px; flex-wrap: wrap; gap: 10px; }
+    .nav-tabs { order: 3; width: 100%; }
+    .view { padding: 20px 14px; }
+    .auth-card { padding: 28px 20px; }
+  }
+</style>
+</head>
+<body class="page">
+
+<!-- ══ AUTH SCREEN ══ -->
+<div id="auth-screen" class="page">
+  <div class="logo-wrap">
+    <h1 class="neon-cyan">OWN THE</h1>
+    <h1 class="neon-pink">GAMERS</h1>
+    <div class="logo-subtitle">▸ DOODLE MARKETPLACE ◂</div>
+    <div class="logo-year">EST. 1984 · DIGITAL EDITION</div>
+  </div>
+
+  <div class="card auth-card">
+    <div class="bonus-badge">
+      <span class="bonus-icon">💰</span>
+      <div>
+        <div class="bonus-amount neon-green">$100 WELCOME BONUS</div>
+        <div style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:2px">Free credits for all new accounts</div>
+      </div>
+    </div>
+
+    <div class="auth-tabs">
+      <div class="auth-tab active" onclick="switchTab('login')">LOGIN</div>
+      <div class="auth-tab" onclick="switchTab('register')">REGISTER</div>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="panel-login" class="auth-panel active">
+      <div class="form-group">
+        <label class="form-label">Username</label>
+        <input class="neon-input" id="login-user" type="text" placeholder="enter username" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="neon-input" id="login-pass" type="password" placeholder="••••••••" />
+      </div>
+      <button class="btn btn-cyan" style="width:100%;justify-content:center;margin-bottom:12px" onclick="loginUser()">
+        ▸ ENTER THE GRID
+      </button>
+      <div class="divider">OR</div>
+      <button class="btn btn-pink google-btn" onclick="googleLogin()">
+        <div class="google-icon">G</div>
+        Continue with Google
+      </button>
+      <button class="btn btn-cyan guest-btn" onclick="guestLogin()">
+        👾 Play as Guest
+      </button>
+    </div>
+
+    <!-- REGISTER -->
+    <div id="panel-register" class="auth-panel">
+      <div class="form-group">
+        <label class="form-label">Username</label>
+        <input class="neon-input" id="reg-user" type="text" placeholder="choose a handle" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="neon-input" id="reg-email" type="email" placeholder="your@email.com" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="neon-input" id="reg-pass" type="password" placeholder="min 6 characters" />
+      </div>
+      <button class="btn btn-pink" style="width:100%;justify-content:center;margin-bottom:12px" onclick="registerUser()">
+        ⚡ CREATE ACCOUNT · GET $100
+      </button>
+      <div class="divider">OR</div>
+      <button class="btn btn-pink google-btn" onclick="googleLogin()">
+        <div class="google-icon">G</div>
+        Sign up with Google
+      </button>
+      <button class="btn btn-cyan guest-btn" onclick="guestLogin()">
+        👾 Play as Guest
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ APP SCREEN ══ -->
+<div id="app-screen" class="page" style="display:none;flex-direction:column">
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo neon-cyan">OTG</div>
+    <div class="nav-tabs">
+      <div class="nav-tab active" onclick="showView('dashboard')">🏠 HOME</div>
+      <div class="nav-tab" onclick="showView('marketplace')">🛒 MARKET</div>
+      <div class="nav-tab" onclick="showView('upload')">🎨 UPLOAD</div>
+      <div class="nav-tab" onclick="showView('my-doodles')">📁 MY DOODLES</div>
+    </div>
+    <div class="nav-right">
+      <div class="wallet">
+        <span class="wallet-label">$</span>
+        <span class="wallet-amount" id="nav-balance">0.00</span>
+      </div>
+      <div class="user-chip">
+        <div class="user-avatar" id="nav-avatar">?</div>
+        <span id="nav-username"></span>
+      </div>
+      <button class="logout-btn" onclick="logout()">EXIT</button>
+    </div>
+  </nav>
+
+  <!-- DASHBOARD -->
+  <div id="view-dashboard" class="view active">
+    <div class="welcome-banner">
+      <h2 class="neon-cyan">WELCOME BACK,<br><span class="neon-pink" id="dash-username">GAMER</span></h2>
+      <p>Ready to own the competition?</p>
+    </div>
+
+    <div class="bonus-alert" id="bonus-alert">
+      <div class="bonus-alert-icon">🎉</div>
+      <div class="bonus-alert-text">
+        <h3 class="neon-green">$100 BONUS CREDITED!</h3>
+        <p>Your welcome bonus has been added. Start browsing the marketplace!</p>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="card stat-card">
+        <div class="stat-icon">💵</div>
+        <div class="stat-value neon-green" id="stat-balance">$0.00</div>
+        <div class="stat-label">Balance</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-icon">🖼️</div>
+        <div class="stat-value neon-cyan" id="stat-doodles">0</div>
+        <div class="stat-label">My Doodles</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-icon">🛒</div>
+        <div class="stat-value neon-pink" id="stat-owned">0</div>
+        <div class="stat-label">Owned NFTs</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-icon">📈</div>
+        <div class="stat-value neon-yellow" id="stat-sales">$0.00</div>
+        <div class="stat-label">Total Sales</div>
+      </div>
+    </div>
+
+    <div class="section-title neon-cyan">FEATURED DOODLES</div>
+    <div class="market-grid" id="featured-grid"></div>
+  </div>
+
+  <!-- MARKETPLACE -->
+  <div id="view-marketplace" class="view">
+    <div style="margin-bottom:24px">
+      <h2 class="section-title neon-pink">MARKETPLACE</h2>
+      <div class="market-filters" id="market-filters">
+        <button class="filter-chip active" onclick="filterMarket('all',this)">ALL</button>
+        <button class="filter-chip" onclick="filterMarket('hot',this)">🔥 HOT</button>
+        <button class="filter-chip" onclick="filterMarket('new',this)">✨ NEW</button>
+        <button class="filter-chip" onclick="filterMarket('cheap',this)">💸 CHEAP</button>
+        <button class="filter-chip" onclick="filterMarket('mine',this)">👤 MINE</button>
+      </div>
+    </div>
+    <div class="market-grid" id="marketplace-grid"></div>
+  </div>
+
+  <!-- UPLOAD -->
+  <div id="view-upload" class="view">
+    <h2 class="section-title neon-pink" style="margin-bottom:24px">CREATE DOODLE</h2>
+    <div class="upload-layout">
+      <!-- Canvas -->
+      <div>
+        <div class="tool-row">
+          <div class="color-swatch selected" style="background:#00fff5" data-color="#00fff5" onclick="setColor(this)"></div>
+          <div class="color-swatch" style="background:#ff00cc" data-color="#ff00cc" onclick="setColor(this)"></div>
+          <div class="color-swatch" style="background:#00ff88" data-color="#00ff88" onclick="setColor(this)"></div>
+          <div class="color-swatch" style="background:#ffee00" data-color="#ffee00" onclick="setColor(this)"></div>
+          <div class="color-swatch" style="background:#9400ff" data-color="#9400ff" onclick="setColor(this)"></div>
+          <div class="color-swatch" style="background:#ffffff" data-color="#ffffff" onclick="setColor(this)"></div>
+          <div class="color-swatch" style="background:#ff4444" data-color="#ff4444" onclick="setColor(this)"></div>
+          <input type="color" id="custom-color" style="width:28px;height:28px;border:none;background:none;cursor:pointer;border-radius:50%;padding:0" title="Custom color" onchange="setCustomColor(this.value)">
+        </div>
+        <div class="tool-row">
+          <button class="brush-btn active" id="btn-pen" onclick="setTool('pen',this)">PEN</button>
+          <button class="brush-btn" id="btn-eraser" onclick="setTool('eraser',this)">ERASER</button>
+          <button class="brush-btn" id="btn-fill" onclick="setTool('fill',this)">FILL</button>
+          <span class="size-label">SIZE</span>
+          <input type="range" id="brush-size" min="1" max="40" value="6" />
+          <button class="brush-btn" onclick="clearCanvas()" style="margin-left:auto;color:#ff4444;border-color:#ff4444">CLEAR</button>
+        </div>
+        <div class="canvas-wrap" id="canvas-wrap">
+          <canvas id="doodle-canvas" width="500" height="500"></canvas>
+        </div>
+        <div style="margin-top:10px;text-align:center">
+          <span style="font-size:0.7rem;color:rgba(0,255,245,0.4);letter-spacing:2px">— OR IMPORT AN IMAGE —</span>
+        </div>
+        <div class="or-upload" onclick="document.getElementById('file-upload-input').click()" style="margin-top:8px">
+          📁 CLICK TO UPLOAD IMAGE FILE
+          <input type="file" id="file-upload-input" accept="image/*" onchange="loadImageToCanvas(event)" />
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="upload-form">
+        <div>
+          <label class="form-label">Doodle Name</label>
+          <input class="neon-input" id="doodle-name" type="text" placeholder="e.g. Pixel Phoenix #001" />
+        </div>
+        <div>
+          <label class="form-label">Description</label>
+          <textarea class="neon-input" id="doodle-desc" rows="3" placeholder="Describe your creation..." style="resize:vertical"></textarea>
+        </div>
+        <div>
+          <label class="form-label">Category</label>
+          <select class="neon-input" id="doodle-cat" style="cursor:pointer">
+            <option value="character">Character</option>
+            <option value="creature">Creature</option>
+            <option value="landscape">Landscape</option>
+            <option value="abstract">Abstract</option>
+            <option value="pixel">Pixel Art</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label">Listing Price (USD)</label>
+          <div class="price-input-wrap">
+            <span>$</span>
+            <input class="neon-input price-input" id="doodle-price" type="number" min="0.01" step="0.01" placeholder="9.99" />
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <input type="checkbox" id="list-for-sale" style="accent-color:var(--neon-cyan);width:16px;height:16px" checked />
+          <label for="list-for-sale" style="font-size:0.8rem;color:rgba(0,255,245,0.7);cursor:pointer">List for sale immediately</label>
+        </div>
+        <button class="btn btn-pink" style="justify-content:center;font-size:0.9rem;padding:16px" onclick="mintDoodle()">
+          ⚡ MINT & LIST DOODLE
+        </button>
+        <div id="mint-preview" style="display:none">
+          <div class="section-title neon-cyan" style="font-size:0.7rem">PREVIEW</div>
+          <div class="card" style="padding:12px;text-align:center">
+            <img id="mint-preview-img" style="width:80%;aspect-ratio:1;object-fit:contain;border-radius:3px" />
+            <div id="mint-preview-name" style="font-family:'Orbitron',sans-serif;font-size:0.85rem;margin-top:8px"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MY DOODLES -->
+  <div id="view-my-doodles" class="view">
+    <h2 class="section-title neon-pink" style="margin-bottom:24px">MY DOODLES</h2>
+    <div class="my-doodles-grid" id="my-doodles-grid"></div>
+  </div>
+
+</div>
+
+<!-- BUY MODAL -->
+<div class="modal-overlay" id="buy-modal">
+  <div class="card modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3 class="neon-cyan">PURCHASE DOODLE</h3>
+    <img id="modal-image" class="modal-image" />
+    <div style="margin-bottom:8px">
+      <div id="modal-name" style="font-family:'Orbitron',sans-serif;font-size:1rem;margin-bottom:4px"></div>
+      <div id="modal-creator" style="font-size:0.75rem;color:rgba(255,255,255,0.4)"></div>
+    </div>
+    <div class="modal-meta">
+      <div>
+        <div style="font-size:0.65rem;letter-spacing:2px;color:rgba(255,255,255,0.4);margin-bottom:4px">PRICE</div>
+        <div id="modal-price" class="modal-price neon-green"></div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:0.65rem;letter-spacing:2px;color:rgba(255,255,255,0.4);margin-bottom:4px">YOUR BALANCE</div>
+        <div id="modal-balance" class="modal-price neon-cyan"></div>
+      </div>
+    </div>
+    <button class="btn btn-green" style="width:100%;justify-content:center" onclick="confirmPurchase()">
+      💳 CONFIRM PURCHASE
+    </button>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div id="toast-container"></div>
+
+<script>
+// ══════════════════════════════
+//  STATE
+// ══════════════════════════════
+const fmt = p => Number.isInteger(p) ? p : p.toFixed(2);
+
+let state = {
+  user: null,
+  balance: 0,
+  doodles: [],    // user's own minted doodles
+  owned: [],      // purchased items
+  sales: 0,
+  isNew: false
+};
+
+// Sample marketplace items
+const SAMPLE_ITEMS = [
+  { id:'s1', name:'Cyber Dragon #001', creator:'0xNeonLord', price:1, emoji:'🐉', hot:true, category:'creature', dataUrl:null },
+  { id:'s2', name:'Pixel Skull V2', creator:'RetroArtist', price:10, emoji:'💀', hot:true, category:'pixel', dataUrl:null },
+  { id:'s3', name:'Neon City Skyline', creator:'UrbanDoodler', price:50, emoji:'🏙️', hot:false, category:'landscape', dataUrl:null },
+  { id:'s4', name:'Glitch Wizard', creator:'0xHex', price:20, emoji:'🧙', hot:false, category:'character', dataUrl:null },
+  { id:'s5', name:'Synthwave Phoenix', creator:'NightRider84', price:35, emoji:'🦅', hot:true, category:'creature', dataUrl:null },
+  { id:'s6', name:'Digi-Cat #77', creator:'PixelPurr', price:5, emoji:'🐱', hot:false, category:'character', dataUrl:null },
+];
+
+let marketItems = [...SAMPLE_ITEMS];
+let activeFilter = 'all';
+let selectedItem = null;
+
+// ══════════════════════════════
+//  AUTH
+// ══════════════════════════════
+function switchTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach((t,i) => t.classList.toggle('active', (i===0&&tab==='login')||(i===1&&tab==='register')));
+  document.getElementById('panel-login').classList.toggle('active', tab==='login');
+  document.getElementById('panel-register').classList.toggle('active', tab==='register');
+}
+
+function loginUser() {
+  const u = document.getElementById('login-user').value.trim();
+  const p = document.getElementById('login-pass').value.trim();
+  if (!u||!p) { toast('Enter username and password','warning'); return; }
+  const saved = JSON.parse(localStorage.getItem('otg_users')||'{}');
+  if (!saved[u] || saved[u].pass !== p) { toast('Invalid credentials','warning'); return; }
+  const acc = saved[u];
+  startSession(acc.username, acc.email||'', false, acc.balance||0, acc.doodles||[], acc.owned||[], acc.sales||0);
+}
+
+function registerUser() {
+  const u = document.getElementById('reg-user').value.trim();
+  const e = document.getElementById('reg-email').value.trim();
+  const p = document.getElementById('reg-pass').value.trim();
+  if (!u||!p) { toast('Fill in username and password','warning'); return; }
+  if (p.length < 6) { toast('Password must be 6+ characters','warning'); return; }
+  const saved = JSON.parse(localStorage.getItem('otg_users')||'{}');
+  if (saved[u]) { toast('Username already taken','warning'); return; }
+  saved[u] = { username:u, email:e, pass:p, balance:100, doodles:[], owned:[], sales:0 };
+  localStorage.setItem('otg_users', JSON.stringify(saved));
+  startSession(u, e, true, 100, [], [], 0);
+}
+
+function googleLogin() {
+  // Simulated Google OAuth — generates a mock Google account
+  const names = ['PixelGamer84','NeonWave_G','CyberDoodler','RetroGrid99','SynthArtist'];
+  const name = names[Math.floor(Math.random()*names.length)];
+  const saved = JSON.parse(localStorage.getItem('otg_users')||'{}');
+  const isNew = !saved[name];
+  if (isNew) {
+    saved[name] = { username:name, email:name+'@gmail.com', pass:'google', balance:100, doodles:[], owned:[], sales:0 };
+    localStorage.setItem('otg_users', JSON.stringify(saved));
+  }
+  const acc = saved[name];
+  toast('🔐 Google sign-in simulated as ' + name, 'info');
+  startSession(acc.username, acc.email, isNew, acc.balance, acc.doodles||[], acc.owned||[], acc.sales||0);
+}
+
+function guestLogin() {
+  startSession('Guest_' + Math.floor(Math.random()*9999), '', false, 0, [], [], 0, true);
+}
+
+function startSession(username, email, isNew, balance, doodles, owned, sales, guest=false) {
+  state = { user:{username,email,guest}, balance, doodles, owned, sales, isNew };
+  document.getElementById('auth-screen').style.display = 'none';
+  const app = document.getElementById('app-screen');
+  app.style.display = 'flex';
+
+  updateNav();
+  renderDashboard();
+  renderMarketplace();
+  renderMyDoodles();
+  showView('dashboard');
+  initCanvas();
+
+  if (isNew) {
+    document.getElementById('bonus-alert').style.display = 'flex';
+    toast('🎉 Welcome! $100 bonus added to your wallet!', 'success');
+  }
+}
+
+function logout() {
+  saveUserData();
+  state = { user:null, balance:0, doodles:[], owned:[], sales:0, isNew:false };
+  document.getElementById('app-screen').style.display = 'none';
+  document.getElementById('auth-screen').style.display = 'flex';
+  document.getElementById('bonus-alert').style.display = 'none';
+}
+
+function saveUserData() {
+  if (!state.user || state.user.guest) return;
+  const saved = JSON.parse(localStorage.getItem('otg_users')||'{}');
+  const u = state.user.username;
+  if (saved[u]) {
+    saved[u].balance = state.balance;
+    saved[u].doodles = state.doodles;
+    saved[u].owned = state.owned;
+    saved[u].sales = state.sales;
+    localStorage.setItem('otg_users', JSON.stringify(saved));
+  }
+}
+
+// ══════════════════════════════
+//  NAVIGATION
+// ══════════════════════════════
+function showView(v) {
+  document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+  document.getElementById('view-' + v).classList.add('active');
+  const tabs = document.querySelectorAll('.nav-tab');
+  const map = { dashboard:0, marketplace:1, upload:2, 'my-doodles':3 };
+  tabs[map[v]]?.classList.add('active');
+  if (v === 'marketplace') renderMarketplace();
+  if (v === 'my-doodles') renderMyDoodles();
+}
+
+function updateNav() {
+  document.getElementById('nav-balance').textContent = '$' + state.balance.toFixed(2);
+  document.getElementById('nav-username').textContent = state.user.username;
+  document.getElementById('nav-avatar').textContent = state.user.username[0].toUpperCase();
+}
+
+// ══════════════════════════════
+//  DASHBOARD
+// ══════════════════════════════
+function renderDashboard() {
+  document.getElementById('dash-username').textContent = state.user.username.toUpperCase();
+  document.getElementById('stat-balance').textContent = '$' + state.balance.toFixed(2);
+  document.getElementById('stat-doodles').textContent = state.doodles.length;
+  document.getElementById('stat-owned').textContent = state.owned.length;
+  document.getElementById('stat-sales').textContent = '$' + (state.sales||0).toFixed(2);
+
+  // Featured = top 4 hot items
+  const featured = marketItems.filter(x=>x.hot).slice(0,4);
+  document.getElementById('featured-grid').innerHTML = featured.map(itemCard).join('');
+}
+
+// ══════════════════════════════
+//  MARKETPLACE
+// ══════════════════════════════
+function filterMarket(f, btn) {
+  activeFilter = f;
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  renderMarketplace();
+}
+
+function renderMarketplace() {
+  let items = [...marketItems, ...state.doodles.filter(d=>d.listed)];
+  if (activeFilter==='hot') items = items.filter(i=>i.hot);
+  if (activeFilter==='new') items = items.slice(-6).reverse();
+  if (activeFilter==='cheap') items = [...items].sort((a,b)=>a.price-b.price).slice(0,8);
+  if (activeFilter==='mine') items = state.doodles.filter(d=>d.listed);
+  document.getElementById('marketplace-grid').innerHTML = items.length
+    ? items.map(itemCard).join('')
+    : '<div class="empty-state"><div class="empty-icon">🕹️</div><h3>NO ITEMS FOUND</h3><p>Try a different filter</p></div>';
+}
+
+function itemCard(item) {
+  const imgContent = item.dataUrl
+    ? `<img src="${item.dataUrl}" style="width:100%;height:100%;object-fit:contain" />`
+    : `<span style="font-size:3.5rem">${item.emoji||'🎨'}</span>`;
+  const badge = item.hot ? '<span class="item-badge">HOT</span>' : '';
+  return `<div class="card market-item" onclick="openBuyModal('${item.id}')">
+    <div class="item-image">${imgContent}${badge}</div>
+    <div class="item-info">
+      <div class="item-name">${item.name}</div>
+      <div class="item-creator">by ${item.creator}</div>
+      <div class="item-footer">
+        <div class="item-price neon-green">$${fmt(item.price)}</div>
+        <button class="buy-btn" onclick="event.stopPropagation();openBuyModal('${item.id}')">BUY</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ══════════════════════════════
+//  BUY MODAL
+// ══════════════════════════════
+function openBuyModal(id) {
+  const all = [...marketItems, ...state.doodles.filter(d=>d.listed)];
+  const item = all.find(i=>i.id===id);
+  if (!item) return;
+  selectedItem = item;
+  const img = document.getElementById('modal-image');
+  img.src = item.dataUrl || '';
+  img.style.display = item.dataUrl ? 'block' : 'none';
+  if (!item.dataUrl) {
+    // show emoji fallback
+    img.style.display = 'block';
+    img.src = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='400' height='400' fill='%23000'/><text y='220' x='200' font-size='150' text-anchor='middle'>${encodeURIComponent(item.emoji||'🎨')}</text></svg>`;
+  }
+  document.getElementById('modal-name').textContent = item.name;
+  document.getElementById('modal-creator').textContent = 'Created by ' + item.creator;
+  document.getElementById('modal-price').textContent = '$' + fmt(item.price);
+  document.getElementById('modal-balance').textContent = '$' + state.balance.toFixed(2);
+  document.getElementById('buy-modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('buy-modal').classList.remove('open');
+  selectedItem = null;
+}
+
+function confirmPurchase() {
+  if (!selectedItem) return;
+  if (state.user.guest) { toast('⚠️ Guests cannot purchase. Register for a free account!', 'warning'); return; }
+  if (state.balance < selectedItem.price) { toast('❌ Insufficient balance!', 'warning'); return; }
+  state.balance -= selectedItem.price;
+  state.owned.push({ ...selectedItem, purchasedAt: Date.now() });
+  updateNav();
+  renderDashboard();
+  saveUserData();
+  closeModal();
+  toast(`✅ You now own "${selectedItem.name}"!`, 'success');
+}
+
+// ══════════════════════════════
+//  CANVAS / DRAWING
+// ══════════════════════════════
+let canvas, ctx, painting=false, currentColor='#00fff5', brushSize=6, currentTool='pen';
+
+function initCanvas() {
+  canvas = document.getElementById('doodle-canvas');
+  ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#000000';
+  ctx.fillRect(0,0,500,500);
+
+  canvas.addEventListener('mousedown', e=>{ painting=true; draw(e); });
+  canvas.addEventListener('mousemove', e=>{ if(painting) draw(e); });
+  canvas.addEventListener('mouseup', ()=> painting=false);
+  canvas.addEventListener('mouseleave', ()=> painting=false);
+
+  // Touch support
+  canvas.addEventListener('touchstart', e=>{ painting=true; drawTouch(e); e.preventDefault(); }, {passive:false});
+  canvas.addEventListener('touchmove', e=>{ if(painting) drawTouch(e); e.preventDefault(); }, {passive:false});
+  canvas.addEventListener('touchend', ()=> painting=false);
+}
+
+function getPos(e) {
+  const r = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / r.width;
+  const scaleY = canvas.height / r.height;
+  return { x:(e.clientX-r.left)*scaleX, y:(e.clientY-r.top)*scaleY };
+}
+
+function draw(e) {
+  const pos = getPos(e);
+  if (currentTool==='fill') { floodFill(Math.round(pos.x), Math.round(pos.y), currentColor); return; }
+  ctx.lineWidth = brushSize;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.strokeStyle = currentTool==='eraser' ? '#000000' : currentColor;
+  ctx.beginPath();
+  ctx.moveTo(pos.x, pos.y);
+  ctx.lineTo(pos.x+0.1, pos.y+0.1);
+  ctx.stroke();
+}
+
+function drawTouch(e) {
+  const t = e.touches[0];
+  draw({ clientX:t.clientX, clientY:t.clientY });
+}
+
+function floodFill(x,y,fillColor) {
+  const img = ctx.getImageData(0,0,canvas.width,canvas.height);
+  const d = img.data;
+  const i = (y*canvas.width+x)*4;
+  const [tr,tg,tb,ta] = [d[i],d[i+1],d[i+2],d[i+3]];
+  const fc = hexToRgb(fillColor);
+  if (tr===fc.r&&tg===fc.g&&tb===fc.b) return;
+  const stack = [[x,y]];
+  while (stack.length) {
+    const [cx,cy] = stack.pop();
+    const ci = (cy*canvas.width+cx)*4;
+    if (d[ci]!==tr||d[ci+1]!==tg||d[ci+2]!==tb) continue;
+    d[ci]=fc.r; d[ci+1]=fc.g; d[ci+2]=fc.b; d[ci+3]=255;
+    if (cx>0) stack.push([cx-1,cy]);
+    if (cx<canvas.width-1) stack.push([cx+1,cy]);
+    if (cy>0) stack.push([cx,cy-1]);
+    if (cy<canvas.height-1) stack.push([cx,cy+1]);
+  }
+  ctx.putImageData(img,0,0);
+}
+
+function hexToRgb(hex) {
+  const r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return r ? { r:parseInt(r[1],16), g:parseInt(r[2],16), b:parseInt(r[3],16) } : {r:0,g:0,b:0};
+}
+
+function setColor(el) {
+  document.querySelectorAll('.color-swatch').forEach(s=>s.classList.remove('selected'));
+  el.classList.add('selected');
+  currentColor = el.dataset.color;
+  currentTool = 'pen';
+  document.getElementById('btn-pen').classList.add('active');
+  document.getElementById('btn-eraser').classList.remove('active');
+  document.getElementById('btn-fill').classList.remove('active');
+}
+
+function setCustomColor(val) {
+  currentColor = val;
+  document.querySelectorAll('.color-swatch').forEach(s=>s.classList.remove('selected'));
+  currentTool = 'pen';
+}
+
+function setTool(tool, btn) {
+  currentTool = tool;
+  document.querySelectorAll('.brush-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function clearCanvas() {
+  ctx.fillStyle='#000';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+}
+
+function loadImageToCanvas(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = new Image();
+    img.onload = () => {
+      ctx.clearRect(0,0,500,500);
+      ctx.fillStyle='#000';
+      ctx.fillRect(0,0,500,500);
+      const scale = Math.min(500/img.width, 500/img.height);
+      const w = img.width*scale, h = img.height*scale;
+      ctx.drawImage(img, (500-w)/2, (500-h)/2, w, h);
+      toast('📁 Image loaded to canvas!', 'info');
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+// ══════════════════════════════
+//  MINT DOODLE
+// ══════════════════════════════
+function mintDoodle() {
+  const name = document.getElementById('doodle-name').value.trim();
+  const desc = document.getElementById('doodle-desc').value.trim();
+  const cat = document.getElementById('doodle-cat').value;
+  const priceVal = parseFloat(document.getElementById('doodle-price').value);
+  const listed = document.getElementById('list-for-sale').checked;
+
+  if (!name) { toast('Give your doodle a name!', 'warning'); return; }
+  if (listed && (!priceVal || priceVal <= 0)) { toast('Set a valid price to list it', 'warning'); return; }
+
+  const dataUrl = canvas.toDataURL('image/png');
+  const id = 'u_' + Date.now();
+  const doodle = {
+    id, name, desc, category: cat,
+    creator: state.user.username,
+    price: priceVal || 0,
+    listed,
+    dataUrl,
+    hot: false,
+    emoji: '🎨',
+    createdAt: Date.now()
+  };
+
+  state.doodles.push(doodle);
+  if (listed) marketItems.push(doodle);
+  saveUserData();
+  updateNav();
+  renderDashboard();
+
+  // Show preview
+  document.getElementById('mint-preview').style.display = 'block';
+  document.getElementById('mint-preview-img').src = dataUrl;
+  document.getElementById('mint-preview-name').textContent = name;
+
+  toast(`⚡ "${name}" minted!${listed?' Listed for $'+fmt(priceVal):''}`, 'success');
+
+  // Reset form
+  document.getElementById('doodle-name').value = '';
+  document.getElementById('doodle-desc').value = '';
+  document.getElementById('doodle-price').value = '';
+  clearCanvas();
+}
+
+// ══════════════════════════════
+//  MY DOODLES
+// ══════════════════════════════
+function renderMyDoodles() {
+  const grid = document.getElementById('my-doodles-grid');
+  if (!state.doodles.length) {
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
+      <div class="empty-icon">🎨</div>
+      <h3>NO DOODLES YET</h3>
+      <p>Create your first doodle in the Upload tab</p>
+    </div>`;
+    return;
+  }
+  grid.innerHTML = state.doodles.map(d=>`
+    <div class="card market-item my-item">
+      <div class="my-item-actions">
+        <button class="action-chip ${d.listed?'chip-delete':'chip-sell'}" onclick="${d.listed?'unlistDoodle':'listDoodle'}('${d.id}')">
+          ${d.listed?'UNLIST':'LIST'}
+        </button>
+      </div>
+      <div class="item-image"><img src="${d.dataUrl}" /></div>
+      <div class="item-info">
+        <div class="item-name">${d.name}</div>
+        <div class="item-creator">${d.listed?'Listed for $'+fmt(d.price):'Not listed'}</div>
+        <div class="item-footer">
+          <div class="item-price neon-${d.listed?'green':'cyan'}">${d.listed?'$'+fmt(d.price):'DRAFT'}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function listDoodle(id) {
+  const d = state.doodles.find(x=>x.id===id);
+  if (!d) return;
+  const price = parseFloat(prompt('Set listing price ($):') || '0');
+  if (!price || price <= 0) { toast('Invalid price','warning'); return; }
+  d.price = price;
+  d.listed = true;
+  if (!marketItems.find(m=>m.id===id)) marketItems.push(d);
+  saveUserData();
+  renderMyDoodles();
+  toast(`✅ "${d.name}" listed for $${fmt(price)}`, 'success');
+}
+
+function unlistDoodle(id) {
+  const d = state.doodles.find(x=>x.id===id);
+  if (!d) return;
+  d.listed = false;
+  marketItems = marketItems.filter(m=>m.id!==id);
+  saveUserData();
+  renderMyDoodles();
+  toast(`"${d.name}" removed from marketplace`, 'info');
+}
+
+// ══════════════════════════════
+//  TOAST
+// ══════════════════════════════
+function toast(msg, type='info') {
+  const el = document.createElement('div');
+  el.className = `toast toast-${type}`;
+  el.textContent = msg;
+  document.getElementById('toast-container').appendChild(el);
+  setTimeout(()=>el.remove(), 4000);
+}
+
+// ══════════════════════════════
+//  BRUSH SIZE
+// ══════════════════════════════
+document.addEventListener('DOMContentLoaded', ()=>{
+  document.getElementById('brush-size').addEventListener('input', e => brushSize = +e.target.value);
+});
+</script>
+</body>
+</html>
